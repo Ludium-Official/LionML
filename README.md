@@ -2,6 +2,7 @@
 
 # Overview
 <img width="635" alt="image" src="https://github.com/user-attachments/assets/8be47ec7-1e79-471e-9cd9-d4b16ee6eb1d">
+
 LionML is a library and command-line tool for doing machine learning model inference and other computational graphs in a zk-snark specifically for **Aleo’s Varuna Circuit**. It branches off of the **[ezkl library by zkonduit](https://github.com/zkonduit/ezkl)** for Aleo developers so that generalized machine learning models can work on Aleo Ecosystem. 
 
 # Problem
