@@ -3,53 +3,78 @@
 # Overview
 <img width="635" alt="image" src="https://github.com/user-attachments/assets/8be47ec7-1e79-471e-9cd9-d4b16ee6eb1d">
 
-LionML is a library and command-line tool for doing machine learning model inference and other computational graphs in a zk-snark specifically for **Aleo’s Varuna Circuit**. It branches off of the **[ezkl library by zkonduit](https://github.com/zkonduit/ezkl)** for Aleo developers so that generalized machine learning models can work on Aleo Ecosystem. 
+LionML is a library and command-line tool for doing machine learning model inference and other computational graphs in a zk-snark specifically for **Aleo’s Varuna Circuit**. It branches off of the **[ezkl library by zkonduit](https://github.com/zkonduit/ezkl)** for Aleo developers so that generalized deep learning models can work on Aleo Ecosystem. 
 
 # Problem
 
-Aleo lacks zkml resources for developers. The current machine learning related libraries and toolings on [Awesome Aleo](https://github.com/howardwu/awesome-aleo?tab=readme-ov-file#machine-learning) are either outdated or limited in transpiling a few models that are not readily usable.
-It requires Leo contract for every instance of ML for verification which makes it so inefficient for running a machine learning algorithm service using Aleo Chain. Simply transpiling to Leo program which is not specifically designed for only ML is inferior to **ML-purpose(like matrix operation) native low-level varuna circuit**.  
+Aleo lacks zkml resources for developers. The current machine learning related libraries and toolings on [Awesome Aleo](https://github.com/howardwu/awesome-aleo?tab=readme-ov-file#machine-learning) are either outdated or limited in transpiling a few models that are not readily usable. The current tools works as follows
 
-For the consumer ready level of machine learning application, it is matter of speed. The computing power of the prover alone is not sufficient to achieve the speed necessary for a comfortable user experience (UX). This is because ZKML SDK is currently transpiling to Leo. Therefore, we need to **create ZKML models using low-level circuits that are native to Varuna proof systems, which are at a lower level, and integrate them with Leo Application program module.**
+1. Machine Learning Model is written in Python
+2. LEO Program Runner transiles Python Model into LEO Language
+3. LEO Program is deployed to Aleo Chain
+4. User interacts with the LEO Program
+   
+Although the library is sufficient to test a few models, it posists the following limitations
+
+1. Variety in Model: LEO Program Runner offers limited vairiety of machine learning modules and cannot cover deep learning models. Considering the trend of AI where most of sophisticated models are based on deep learning, it significanly reduces the possibilty of zkML on Aleo Ecosystem   
+2. Program Orchestration: Transpiled LEO programs are written as a full end program. In this case, it is more difficult for developers to utilize the pre-existing modules by calling it to their own programs
+
+For the consumer grade machine learning applications, we need a better sets of tools for developers to run more sophisticated models on Aleo Ecosystem.
 
 # Solution
+<img width="635" alt="image" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2Fe208e58c-ad3c-4f76-8537-e675883dbcf7%2Fimage.png?table=block&id=5edc36ae-6258-4690-9cf4-1f11088e635b&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2">
 
 LionML library provides a new framework for zkML inference that operates
 
-- Offchain Proving: Any computational model, including Pytorch(superstar at ml) and Tensorflow, can be pointed to and the proof can be generated through **Varuna native low-level circuit**. By leveraging **prover network** , Aleo can take ZKML-Application narratives for privacy-preserving manner. 
+- Offchain Proving: Any computational model, including Pytorch(superstar at ml) and Tensorflow, can be pointed to and the proof can be generated through **Varuna native low-level circuit**. The lirary modifies ezkl library by substituting halo2 proof system with Varuna circuit so that .onnx file can be converted and deployed to SnarkVM. 
 
-- Onchain Verification: The proof is verified through Validators and even Leo contract so that the results can be further used onchain.
+- Onchain Verification: Deployed model will be designated with annotation. We will deploy a LEO Complier such that annotated models on SnarkVM can be called from LEO program
+
+EZKL library provides computational graphs for the developers to deploy more variety of models direclty on SnarkVM. Also, individual developers can orchestrate more freely with deployed models by calling it during the LEO program deployment. 
 
 # System Architecture
+### SanrkVM Deployment
+The structure of [ezkl library](https://github.com/zkonduit/ezkl) is as follows:
+1. Define a computational graph, for instance a neural network (but really any arbitrary set of operations), as you would normally in pytorch or tensorflow.
+2. Export the final graph of operations as an .onnx file and some sample inputs to a .json file
+3. Point ezkl to the .onnx and .json files to generate a ZK-SNARK circuit
 
-The Diagram below explains two cases
+Theortically, computational graphs like pytorch or tensorflow should be able to point to Varuna Circuit. To check if there can be a side effect, we took a peak into Varuna circuit and AVM Opcode
 
-<img width="485" alt="image" src="https://github.com/user-attachments/assets/cfd71fd5-f3a7-4ef9-bcdf-35adad23f331">
+![Varuna R1CS linear combination circuit](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2F2e246cec-5978-419b-bd3f-8f60c3cf6939%2Fimage.png?table=block&id=b0c302b4-56b3-4329-a4c9-6d2f6c91d112&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2)
 
+![AVM Opcode](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2F290a2750-54f1-46e2-9887-0b96eb564e2c%2Fimage.png?table=block&id=53a9a85b-b745-4b01-80a7-b27e45f38b84&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2)
 
-<img width="492" alt="image" src="https://github.com/user-attachments/assets/54b07284-9e6d-45c3-83a2-35c04c3141ad">
+- SnarkVM include both AVMOpcode, Varuna R1CS Circuit. **In short, both can be proved and executed!**
+- In addition, SnarkOS generates proof on client/router in the following order
+  check_transaction_basic → check_internal_transactions → check_internal_transaction → check_excution_internal→verify_excution
+  → Trace::verify_execution_proof(verify_batch call and check global state root during execution) → Self::verify_batch
+  → Verifying_Key::verify_batch(SNARK proof logic, include Varuna::<N>::verify_batch)
 
-### System Flow
+```
+        if self.ledger.check_transaction_basic(&transaction, None, &mut rand::thread_rng()).is_ok() {
+```
 
-LionML consists of the following elements:
+- Trace::verify_execution_proof checks the state  root. But the Subroutine that computes ZKML does not occur transistion
+- Thus, Varuna::<N>::verify_batch can sufficiently infer the zkML execution 
 
-- Pre-trained model: Prepare ML model implemented and trained by pytorch, tensorflow, etc ... 
-- Pre-trained model to ONNX: Convert the model to ONNX, which is a universal ML model technology graph
-- Varuna-native Circuit: Conver the ONXX to Varuna-native circuit which is more faster than LEO 
-- Intergration with Leo application program(Optional): Intergration ML circuit with Leo Program module which is using ZKML in its logic.
-- Deploy: After intergration, the package which is consist of ML circuit and Leo program will be deployed at Validator and Prover.
-- Off-chain Computation: Prover network compute with its heavy computational power and makes proof in fast way(Thanks to the speed of the 'native' Varuna Circuit).
+### Integration with LEO Program
 
-### Details
+![LEO Program Integration](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2F9b324a7e-ba6d-4980-9dc4-d183fae51549%2Fimage.png?table=block&id=f1949433-9231-4611-a769-937eb633fc15&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2)
 
-- Computational Algorithm: Machine learning algorithms like Pytorch and Tensorflow
-- Proof Generation: Generate zk Proof using Aleo’s Varuna circuit
-- Onchain Contract: Even LEO contract with `makeproof()` or `verify()` to verify the proof onchain %% 이 부분은 다시 생각해보기... %%
+- ML model is transpiled to .rs file via varuna-r1cs circuit
+- The file is deployed to SnarkVM submodule via with Annotation (There should be no side effect)
+- LEO program calls the desired ML model by calling the Annotation Number
+  ![LEO Program Example](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2Fc7eb4b79-0626-4a98-b26c-3700d2a2ce2f%2Fimage.png?table=block&id=17d1bcb3-1da0-4abe-8f17-77c12828d5e9&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2)
+- ML model output is used on the LEO program
 
 # Impact
 
-- General Purpose Inference Library: Provide a library and a tool to generate proof on Aleo using any Machine Learning algorithm compatible with
-- Private Machine Learning Apps on Aleo: Onchain verified machine learning allows running onchain programs without revealing the input data
+LionML library should be useful for the two types of developers 
+
+1. ML Transpiler: Developer who wish to upload their desired ML model for inference through Aleo Prover Network can utilize the library and upload it to SnarkVM
+2. ML Application Developer: Aleo application developers can call the deployed ML model through annotation and implement their business logic
+
 
 # Roadmap
 
@@ -57,16 +82,16 @@ LionML consists of the following elements:
 
 - Phase 1 - Quick Start
     - Objective: Build a testable framework based on minimal data
-    - Publish open sourced Aleo EZKL library
+    - Publish open sourced LionML library
     - Publish Bench mark Varuna-ZKML Performance
-    - Provide example models that run on Aleo EZKL
+    - Provide example models that run on LionML
 - Phase 2 - Aleo zkML Infrastructure
     - Objective: Build Intergration pipline and sub-proof module at prover client 
     - Make Intergration Logic at Aleo ZKVM
-    - Make Prover network can proof ZKML model easily with EZKL library
+    - Make Prover network can proof ZKML model easily with LionML library
 - Phase 3 - Aleo zkML Application
 	- Objective: More dataset / product level UI to start the service adoption
-	- Build an application utilizing models on Aleo EZKL
+	- Build an application utilizing models on LionML
 *  Phase 4 - Machine Learning on Aleo
     - Objective: Implement zkML model learning to be possible on Aleo
     - Publish a novel zkML Training circuit model
@@ -74,10 +99,10 @@ LionML consists of the following elements:
 
 |**Category**|**Justification**|**Time**|**Amount**|
 |---|---|---|---|
-|Planning|Analyzing / Writing the full implementation details for Aleo EZML|1 Week|**$1,000 $USD**|
-|Library|Publish Aleo EZKL implementation with the instructions|2 Weeks|**$2,000 $USD**|
-|Agent Example|Test at least two models with results on CLI command view|2 Weeks|**10,000 $ALEO**|
-|**Total**||5 Weeks|**3,000 $USD + 10,0000 $ALEOt**|
+|Planning|Analyzing Varuna / Marlin Protocol, SnarkVM for more comprehensive zkML possibility |2 Week|**$1,000 $USD**|
+|LionML Library |Publish LionML implementation with the instructions|3 Weeks|**$2,000 $USD**|
+|Agent Example|Test at least two models with results on CLI command view. It requires SnarkVM module and LEO Compiler modification |5 Weeks|**10,000 $ALEO**|
+|**Total**||10 Weeks|**3,000 $USD + 10,0000 $ALEOt**|
 
 # Team
 
@@ -85,5 +110,3 @@ LionML consists of the following elements:
 - [Ludium](https://docs.google.com/presentation/d/15mmCJ2OYudZY1ncR8kX_eJsq8x8QaTjuOs80ep_TmwE/edit?usp=sharing): Ludium is Web3 builder community with 1,800 + active contributors. It provides opportunities for builders ranging from education, hackathon, to open source contribution based works.
 
 # Questions / Requests
-
-- Varuna Circuit code needs to be open for integration
