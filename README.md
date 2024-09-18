@@ -22,7 +22,7 @@ Although the library is sufficient to test a few models, it posists the followin
 For the consumer grade machine learning applications, we need a better sets of tools for developers to run more sophisticated models on Aleo Ecosystem.
 
 # Solution
-<img width="635" alt="Model Overview" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2Fe208e58c-ad3c-4f76-8537-e675883dbcf7%2Fimage.png?table=block&id=5edc36ae-6258-4690-9cf4-1f11088e635b&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2">
+![Model Overview](https://github.com/Ludium-Official/LionML/blob/main/images/Model%20Overview.png?raw=true)
 
 LionML library provides a new framework for zkML inference that operates
 
@@ -41,9 +41,9 @@ The structure of [ezkl library](https://github.com/zkonduit/ezkl) is as follows:
 
 Theortically, computational graphs like pytorch or tensorflow should be able to point to Varuna Circuit. To check if there can be a side effect, we took a peak into Varuna circuit and AVM Opcode
 
-![Varuna R1CS linear combination circuit](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2F2e246cec-5978-419b-bd3f-8f60c3cf6939%2Fimage.png?table=block&id=b0c302b4-56b3-4329-a4c9-6d2f6c91d112&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2)
+![Varuna R1CS linear combination circuit](https://github.com/Ludium-Official/LionML/blob/main/images/Varuna%20R1CS%20linear%20combination%20circuit.png?raw=true)
 
-![AVM Opcode](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2F290a2750-54f1-46e2-9887-0b96eb564e2c%2Fimage.png?table=block&id=53a9a85b-b745-4b01-80a7-b27e45f38b84&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2)
+![AVM Opcode](https://github.com/Ludium-Official/LionML/blob/main/images/AVM%20Opcode.png?raw=true)
 
 - SnarkVM include both AVMOpcode, Varuna R1CS Circuit. **In short, both can be proved and executed!**
 - In addition, SnarkOS generates proof on client/router in the following order
@@ -60,12 +60,12 @@ Theortically, computational graphs like pytorch or tensorflow should be able to 
 
 ### Integration with LEO Program
 
-![LEO Program Integration](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2F9b324a7e-ba6d-4980-9dc4-d183fae51549%2Fimage.png?table=block&id=f1949433-9231-4611-a769-937eb633fc15&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2)
+![LEO Program Integration](https://github.com/Ludium-Official/LionML/blob/main/images/LEO%20Program%20Integration.png?raw=true)
 
 - ML model is transpiled to .rs file via varuna-r1cs circuit
 - The file is deployed to SnarkVM submodule via with Annotation (There should be no side effect)
 - LEO program calls the desired ML model by calling the Annotation Number
-  ![LEO Program Example](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2Fc7eb4b79-0626-4a98-b26c-3700d2a2ce2f%2Fimage.png?table=block&id=17d1bcb3-1da0-4abe-8f17-77c12828d5e9&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2)
+  ![LEO Program Example](https://github.com/Ludium-Official/LionML/blob/main/images/LEO%20Program%20Example.png?raw=true)
 - ML model output is used on the LEO program
 
 # Impact
