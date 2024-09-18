@@ -22,7 +22,7 @@ Although the library is sufficient to test a few models, it posists the followin
 For the consumer grade machine learning applications, we need a better sets of tools for developers to run more sophisticated models on Aleo Ecosystem.
 
 # Solution
-<img width="635" alt="image" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2Fe208e58c-ad3c-4f76-8537-e675883dbcf7%2Fimage.png?table=block&id=5edc36ae-6258-4690-9cf4-1f11088e635b&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2">
+<img width="635" alt="Model Overview" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F229d1d94-7c1d-4208-9d32-50ab943893ae%2Fe208e58c-ad3c-4f76-8537-e675883dbcf7%2Fimage.png?table=block&id=5edc36ae-6258-4690-9cf4-1f11088e635b&spaceId=229d1d94-7c1d-4208-9d32-50ab943893ae&width=2000&userId=888db9d6-154f-4bd4-bca9-a83f8ee11cd4&cache=v2">
 
 LionML library provides a new framework for zkML inference that operates
 
