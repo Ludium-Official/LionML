@@ -22,7 +22,8 @@ Although the library is sufficient to test a few models, it posists the followin
 For the consumer grade machine learning applications, we need a better sets of tools for developers to run more sophisticated models on Aleo Ecosystem.
 
 # Solution
-![Model Overview](https://github.com/Ludium-Official/LionML/blob/main/images/Model%20Overview.png?raw=true)
+![Model Overview](https://github.com/user-attachments/assets/bc62c30e-c644-4064-ba88-9deba267d453)
+
 
 LionML library provides a new framework for zkML inference that operates
 
