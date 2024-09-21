@@ -98,7 +98,7 @@ LionML library should be useful for the two types of developers
     - Publish a novel zkML Training circuit model
 ### Budget and Milestones - Quick Start
 
-|**Category**|**Justification**|**Time**|**Amount**|
+|**Category**|**Justification**|**Time**|
 |---|---|---|
 |Planning|Analyzing Varuna / Marlin Protocol, SnarkVM for more comprehensive zkML possibility |2 Week|
 |LionML Library |Publish LionML implementation with the instructions|3 Weeks|
