@@ -99,11 +99,11 @@ LionML library should be useful for the two types of developers
 ### Budget and Milestones - Quick Start
 
 |**Category**|**Justification**|**Time**|**Amount**|
-|---|---|---|---|
-|Planning|Analyzing Varuna / Marlin Protocol, SnarkVM for more comprehensive zkML possibility |2 Week|**$1,000 $USD**|
-|LionML Library |Publish LionML implementation with the instructions|3 Weeks|**$2,000 $USD**|
-|Agent Example|Local test at least two models with results on CLI command view. It requires SnarkVM module and LEO Compiler modification |5 Weeks|**10,000 $ALEO**|
-|**Total**||10 Weeks|**3,000 $USD + 10,0000 $ALEOt**|
+|---|---|---|
+|Planning|Analyzing Varuna / Marlin Protocol, SnarkVM for more comprehensive zkML possibility |2 Week|
+|LionML Library |Publish LionML implementation with the instructions|3 Weeks|
+|Agent Example|Local test at least two models with results on CLI command view. It requires SnarkVM module and LEO Compiler modification |5 Weeks|
+|**Total**||10 Weeks|
 
 # Team
 
